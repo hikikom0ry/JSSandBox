@@ -23,7 +23,7 @@
 
 'use strict';
 
- const numberOfFilms = prompt('Сколько фильмов вы уже посмотрели', ''); 
+ const numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели', ''); 
 
 const personalMovieDB = {
     count: numberOfFilms,
@@ -46,8 +46,6 @@ for (let i=0; i < 2; i++) {
         }
       
 }
-
-
     console.log(personalMovieDB);
     if (personalMovieDB.count < 10) {
         alert('Просмотрено довольно мало фильмов')
