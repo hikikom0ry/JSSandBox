@@ -23,7 +23,17 @@
 
 'use strict';
 
- const numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели', ''); 
+ let numberOfFilms;
+ 
+ function start() {
+    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели', '');
+    
+    while(numberOfFilms == '' || numberOfFilms == null ||isNaN(numberOfFilms)) {
+        numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели', '');
+    }
+ }
+
+ start();
 
 const personalMovieDB = {
     count: numberOfFilms,
@@ -32,10 +42,13 @@ const personalMovieDB = {
     genres: [],
     privat: false
 };
-let a, b;
-for (let i=0; i < 2; i++) {
-        a = prompt('Один из последних просмотренных фильмов?', '');
-        b = prompt('На сколько его оцените?', '');
+
+
+
+function rememberMyFilms() {
+    for (let i=0; i < 2; i++) {
+        const a = prompt('Один из последних просмотренных фильмов?', ''),
+            b = prompt('На сколько его оцените?', '');
 
         if (a != '' && a != null && a.length < 50 && b != '' && b != null ) {
             personalMovieDB.movies[a] = b;
@@ -43,10 +56,13 @@ for (let i=0; i < 2; i++) {
         } else {
             i--;
             console.log('error');
-        }
-      
+        }   
+    }
 }
-    console.log(personalMovieDB);
+
+// rememberMyFilms();
+
+function detectPersonalLevel() {
     if (personalMovieDB.count < 10) {
         alert('Просмотрено довольно мало фильмов')
     } else if (personalMovieDB.count >= 10 && personalMovieDB.count <=30) {
@@ -54,3 +70,23 @@ for (let i=0; i < 2; i++) {
     } else {
         alert('Вы киноман');
     }
+}
+
+// detectPersonalLevel();
+
+function showMyDB(hidden) {
+    if (!hidden) {
+        console.log(personalMovieDB);
+    }
+}
+
+
+
+function writeYourGenres() {
+    for (let i = 0; i < 3; i++) {   
+        personalMovieDB.genres[i] = prompt(`Ваш любимый жанр под номером ${i + 1}`,'');
+    }
+}
+
+writeYourGenres();
+showMyDB(personalMovieDB.privat);
