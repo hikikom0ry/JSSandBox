@@ -16,7 +16,7 @@ const adv = document.querySelectorAll('.promo__adv img'),
       movieList = document.querySelector('.promo__interactive-list'),
       inputForm = document.querySelector('form.add'),
       inputField = inputForm.querySelector('.adding__input'),
-      checkFavorite = inputForm.querySelector("[type='checkbox']"),
+      checkFavorite = inputForm.querySelector("[type='checkbox']");
 
 
 
@@ -50,7 +50,6 @@ function sortMovieList() {
     for (let i = 0; i < (movieDB.movies.length); i++) {
         movieDB.movies[i] = movieDB.movies[i].toLowerCase();
     }
-    console.log(movieDB.movies);
     movieDB.movies.sort();
 }
 
@@ -65,10 +64,14 @@ function updateMovieList() {
         `;
     });
 
-    document.querySelectorAll('.delete').forEach(item, i)
-    addEventListener('click', event =>{
-        event.target.parentElement.remove();
+    document.querySelectorAll('.delete').forEach((item, i) => {
+        item.addEventListener('click', event =>{
+            item.parentElement.remove();
+            movieDB.movies.splice(i, 1);
+            updateMovieList();
+        });
     });
+    
 }
 
 function addToFavorite(){
@@ -76,9 +79,5 @@ function addToFavorite(){
        console.log('Добавляем любимый фильм');
    }
 }
-
-
-
-
 
 updateMovieList();
