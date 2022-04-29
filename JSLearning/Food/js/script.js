@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
-
+    //tabs
     const tabs = document.querySelectorAll('.tabheader__item'),
           tabsParent = document.querySelector('.tabheader__items'),
           tabsContent = document.querySelectorAll('.tabcontent');
@@ -38,5 +38,59 @@ window.addEventListener('DOMContentLoaded', () => {
     hideTabContent();
     showTabContent();
 
+    //timer
+    const deadline = '2022-05-04T08:32:24.510Z';
+    console.log(new Date('2022-04-29T08:27:24.510Z'));
+
+    function getTimeRemaining(endtime) {
+        const t = Date.parse(endtime) - new Date();
+        const days = Math.floor(t / (1000 * 60 * 60 * 24)),
+              hours = Math.floor((t / (1000 * 60 * 60)) % 24),
+              minutes = Math.floor(Math.floor((t / (1000 * 60)) % 60)),
+              seconds = Math.floor(Math.floor((t / 1000) % 60));
+        return {
+            'total': t,
+            'days': days,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
+        };
+    }
+
+    function setClock(endtime, selector) {
+        const timer = document.querySelector(selector),
+              daysBlock = timer.querySelector('#days'),
+              hoursBlock = timer.querySelector('#hours'),
+              minutesBlock = timer.querySelector('#minutes'),
+              secondsBlock = timer.querySelector('#seconds'),
+              intervalId = setInterval(updateClock, 1000);
+        updateClock();
+        
+        function updateClock() {
+            const t = getTimeRemaining(endtime);
+
+            if (t.total / 1000 >= 0) {
+                daysBlock.innerHTML = getZero(t.days);
+                hoursBlock.innerHTML = getZero(t.hours);
+                minutesBlock.innerHTML = getZero(t.minutes);
+                secondsBlock.innerHTML = getZero(t.seconds);
+                
+            } else {
+                clearInterval(intervalId);
+            }
+            
+        }
+
+        function getZero(num) {
+            if (num >= 0 && num < 10) {
+                return `0${num}`;
+            } else {
+                return `${num}`;
+            }
+        }
+    }
+    setClock(deadline, '.timer');
+    
 });
+
 
