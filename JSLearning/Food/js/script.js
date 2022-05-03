@@ -131,6 +131,7 @@ window.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', (event) => {
        if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
            showModal();
+           
        }
     });
 
